@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react"
 
 
-function Wine({name,location, price, handleDelete, type, wine, image}){
-  const [reviews, setReviews]= ([])
+function Wine({name,location, price, handleDelete, type, wine, image, flavor_profile}){
+  
 
   const handleDeleteClick = () =>{
     fetch(`http://127.0.0.1:5555/wines/${wine.id}`,{
@@ -19,6 +19,7 @@ function Wine({name,location, price, handleDelete, type, wine, image}){
         <h3>{name}</h3>
         <h5>Location: {location}</h5>
         <h5>Type: {type}</h5>
+        <h5>Flavor Profile: {flavor_profile}</h5>
         <h5>Price: {price}</h5>
         <button className="Remove" 
         onClick={handleDeleteClick}>Remove</button>

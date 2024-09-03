@@ -7,6 +7,7 @@ function Form(){
     const [type, setType] = useState("")
     const [price, setPrice] = useState("")
     const [image, setImage] = useState("")
+    const [flavorProfile, setFlavorProfile] = ("")
     
     function handleSubmit(e) {
         e.preventDefault();
@@ -16,6 +17,7 @@ function Form(){
             type: type,
             price: price,
             imageUrl: image,
+            flavorProfile: flavorProfile
         }
         fetch("http://localhost:3000/wines", {
             method: "POST",
@@ -69,6 +71,16 @@ function Form(){
                         placeholder='Wine Type' 
                         value={type}
                         onChange={(e)=>setType(e.target.value)}
+                    />
+                </label>
+        
+                <label>
+                    <input
+                        type="text"
+                        name="Flavor Profile"
+                        placeholder='Flavor Profile' 
+                        value={flavorProfile}
+                        onChange={(e)=>setFlavorProfile(e.target.value)}
                     />
                 </label>
                 <label>

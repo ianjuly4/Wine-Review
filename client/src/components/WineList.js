@@ -14,6 +14,7 @@ function WineList(){
   const [winePrice, setWinePrice] = useState("All")
 
 
+
    useEffect(() =>{
       fetch("http://127.0.0.1:5555/wines",{
         method: "GET"
@@ -69,7 +70,7 @@ function WineList(){
       location={wine.location}
       type={wine.type}
       price={wine.price}
-      star_review={wine.star_review}
+      flavor_profile={wine.flavor_profile}
       wine={wine}
       handleDelete={handleDelete}
       />
