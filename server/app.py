@@ -1,10 +1,4 @@
 #!/usr/bin/env python3
-
-#!/usr/bin/env python3
-
-# Standard library imports
-
-# Remote library imports
 from flask import Flask, jsonify, make_response, request
 from flask_migrate import Migrate
 from flask_restful import Api, Resource
@@ -53,10 +47,10 @@ class Wines(Resource):
         new_wine = Wine(
             name= request.form['name'], 
             type= request.form['type'],
-            flavor_profile= request.form['flavor_profile'],
+            flavor_profile= request.form['flavorProfile'],
             location= request.form['location'],
             price= request.form['price'],
-            image= request.form['image']
+            image= request.form['imageURL']
         )
         db.session.add(new_wine)
         db.session.commit()

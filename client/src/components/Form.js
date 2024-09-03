@@ -7,7 +7,7 @@ function Form(){
     const [type, setType] = useState("")
     const [price, setPrice] = useState("")
     const [image, setImage] = useState("")
-    const [flavorProfile, setFlavorProfile] = ("")
+    const [flavorProfile, setFlavorProfile] = useState("")
     
     function handleSubmit(e) {
         e.preventDefault();
@@ -19,7 +19,7 @@ function Form(){
             imageUrl: image,
             flavorProfile: flavorProfile
         }
-        fetch("http://localhost:3000/wines", {
+        fetch("http://127.0.0.1:5555/wines", {
             method: "POST",
             headers: {
                 "content-type" : "application/Json",
@@ -84,15 +84,13 @@ function Form(){
                     />
                 </label>
                 <label>
-                    <select 
-                        name="Price" 
+                <input
+                        type="text"
+                        name="Price"
+                        placeholder='Price' 
                         value={price}
-                        onChange={(e)=>setPrice(e.target.value)}>
-                        <option value="All">Price</option>
-                        <option value="$">$</option>
-                        <option value="$$">$$</option>
-                        <option value="$$$">$$$</option>
-                    </select>
+                        onChange={(e)=>setPrice(e.target.value)}
+                    />
                 </label>
                 <button type="submit">Add Wine</button>
             </form>
