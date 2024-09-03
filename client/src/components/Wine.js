@@ -1,0 +1,29 @@
+import React, {useEffect, useState} from "react"
+
+
+function Wine({name,location, price, handleDelete, type, wine, image}){
+  const [reviews, setReviews]= ([])
+
+  const handleDeleteClick = () =>{
+    fetch(`http://127.0.0.1:5555/wines/${wine.id}`,{
+      method: "DELETE"
+  })
+  .then((r)=>r.json())
+  .then(()=>handleDelete("My bad, thought you really liked that one"))
+  window.location.reload()
+  }
+  
+  
+  return (
+      <li className="Wine">
+        <h3>{name}</h3>
+        <h5>Location: {location}</h5>
+        <h5>Type: {type}</h5>
+        <h5>Price: {price}</h5>
+        <button className="Remove" 
+        onClick={handleDeleteClick}>Remove</button>
+       
+      </li>
+    );
+}  
+export default Wine

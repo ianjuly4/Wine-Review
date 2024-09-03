@@ -1,0 +1,96 @@
+
+
+
+:root {
+  --magenta: rgb(210, 51, 210);
+  --cyan: rgb(98, 230, 230);
+  --yellow: rgb(237, 237, 32);
+  --font-color: rgb(33, 33, 33);
+  --font-color-light: rgb(155, 155, 155);
+  --background: rgb(255, 255, 255);
+  --background-light: rgb(230, 230, 230);
+}
+
+.WineList {
+  margin: 2rem auto;
+  padding: 1rem 2rem;
+  max-width: 1200px;
+  box-shadow: 20px 20px 25px rgba(33, 33, 33, 0.2);
+  border-radius: 25px;
+  
+  background-image: url("https://www.istockphoto.com/photo/pouring-different-wines-into-the-glasses-arranged-for-the-wine-tasting-on-the-counter-gm1460761498-494872029?searchscope=image%2Cfilm");
+  background-color: #cccccc;
+}
+
+.Header {
+  text-align: center;
+  font-size: 30px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  color: white
+}
+
+.Wine{
+  display: inline-block;
+  justify-content: space-between;
+  box-sizing: border-box;
+  width: 270px;
+  margin: 0 6px 6px;
+  background:white;
+  box-shadow: 5px 5px 10px rgb(98, 230, 230);
+  border-radius: 20px;
+  text-decoration: none;
+  text-align: center;
+  font-size: 20px ;
+  color: black;
+}
+
+.Wine button{
+  width: 100px;
+  color: white;
+  background-color: black;
+}
+
+.Filter {
+  display: flex;
+  justify-content: space-between;
+}
+.Filter select,
+.Filter input,
+.Filter button {
+  text-align: center;
+  width: 275px;
+  height: 30px;
+  margin: 0 6px 6px;
+  background: white;
+  box-shadow: 5px 5px 10px rgb(98, 230, 230);
+  border-radius: 20px;
+}
+.nav-link{
+  display: inline-block;
+  box-sizing: border-box;
+  width: 60px;
+  margin: 0 6px 6px;
+  background: black;
+  text-decoration: none;
+  text-align: center;
+  font-size: min(10vw, 25px) ;
+  color: white;
+}
+.FormPage {
+  margin: 2rem auto;
+  padding: 1rem 2rem;
+  max-width: 1200px;
+  box-shadow: 20px 20px 25px rgba(33, 33, 33, 0.2);
+  border-radius: 25px;
+  background-color: #cccccc;
+  color:white
+  
+}
+.FormHeader{
+  text-align: center;
+  font-size: 30px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  color: white
+}
