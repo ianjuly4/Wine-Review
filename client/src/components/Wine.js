@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react"
 
 
-function Wine({name,location, price, handleDelete, type, wine, image, flavor_profile}){
+function Wine({name,location, price, handleDelete, type, wine, flavor_profile}){
   
 
   const handleDeleteClick = () =>{

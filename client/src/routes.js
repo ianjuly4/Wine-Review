@@ -1,6 +1,6 @@
 import RestaurantList from "./components/WineList"
 import FormPage from "./components/FormPage";
-import Review from "./components/Review";
+import ReviewPage from "./components/ReviewPage";
 
 
 const routes = [
@@ -14,7 +14,7 @@ const routes = [
   },
   {
     path: "/Review",
-    element: <Review />,
+    element: <ReviewPage />,
   }
 ]
 export default routes;

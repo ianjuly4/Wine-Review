@@ -29,9 +29,6 @@ class Wine(db.Model, SerializerMixin):
                                  creator=lambda user_obj: Review(user=user_obj))
     
 
-
-    
-
 class Review(db.Model, SerializerMixin):
     __tablename__ = 'reviews'
 

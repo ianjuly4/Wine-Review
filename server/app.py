@@ -49,10 +49,17 @@ class Wines(Resource):
             type= request.form['type'],
             flavor_profile= request.form['flavorProfile'],
             location= request.form['location'],
-            price= request.form['price'],
-            image= request.form['imageURL']
+            price= request.form['price']
         )
-        db.session.add(new_wine)
+        new_user= User(
+            name= request.form['name']
+        )
+        new_review= Review(
+            star_review= request.form['star_review'],
+            comment= request.form['comment']
+        )
+
+        db.session.add(new_wine, new_user, new_review)
         db.session.commit()
 
         response_dict = new_wine.to_dict()

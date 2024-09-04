@@ -6,9 +6,11 @@ function Form(){
     const [location, setLocation] = useState("")
     const [type, setType] = useState("")
     const [price, setPrice] = useState("")
-    const [image, setImage] = useState("")
     const [flavorProfile, setFlavorProfile] = useState("")
-    
+    const [user, setUser] = useState("")
+    const [comment, setComment] = useState("")
+    const [starReview, setStarReview] = useState("")
+
     function handleSubmit(e) {
         e.preventDefault();
         const newWine = {
@@ -16,15 +18,22 @@ function Form(){
             location: location,
             type: type,
             price: price,
-            imageUrl: image,
-            flavorProfile: flavorProfile
+            flavorProfile: flavorProfile, 
         }
+        const newUser = {
+            name: user
+        }
+        const newReview = {
+            comment: comment,
+            starReview: starReview
+        }
+
         fetch("http://127.0.0.1:5555/wines", {
             method: "POST",
             headers: {
-                "content-type" : "application/Json",
+                "content-type" : "application/json",
             },
-            body: JSON.stringify(newWine)
+            body: JSON.stringify(newWine, newUser)
         })
         .then((r)=>r.json())
         .then((newWine)=>console.log(newWine))
@@ -32,12 +41,23 @@ function Form(){
         setLocation("")
         setType("")
         setPrice("")
-        setImage("")
+        setFlavorProfile("")
+        setUser("")
     }
+
+   
     return(
         <div>
             <form className="Form" onSubmit={handleSubmit} >
                 <label>
+                <input 
+                        type="text" 
+                        name="User Name" 
+                        placeholder="User Name" 
+                        value={user}
+                        onChange={(e)=>setUser(e.target.value)}
+                    />
+                </label>
                     <input 
                         type="text" 
                         name="Wine Name" 
@@ -45,16 +65,8 @@ function Form(){
                         value={wine}
                         onChange={(e)=>setWine(e.target.value)}
                     />
-                </label>
-                <label>
-                <input 
-                        type="text" 
-                        name="Wine Image" 
-                        placeholder="Wine Image" 
-                        value={image}
-                        onChange={(e)=>setImage(e.target.value)}
-                    />
-                </label>
+               
+
                 <label>
                     <input
                         type="text"
@@ -85,12 +97,27 @@ function Form(){
                 </label>
                 <label>
                 <input
-                        type="text"
+                        type="integer"
                         name="Price"
                         placeholder='Price' 
                         value={price}
                         onChange={(e)=>setPrice(e.target.value)}
                     />
+                     <input
+                        type="text"
+                        name="Comment"
+                        placeholder='Comment' 
+                        value={comment}
+                        onChange={(e)=>setComment(e.target.value)}
+                    />
+                     <input
+                        type="integer"
+                        name="Star Review"
+                        placeholder='How Many Stars?' 
+                        value={starReview}
+                        onChange={(e)=>setStarReview(e.target.value)}
+                    />
+                    
                 </label>
                 <button type="submit">Add Wine</button>
             </form>
