@@ -51,7 +51,10 @@ function WineList(){
     })
 
   return(
+    
   <div className="WineList">
+    background-image: url("https://www.istockphoto.com/photo/pouring-different-wines-into-the-glasses-arranged-for-the-wine-tasting-on-the-counter-gm1460761498-494872029?searchscope=image%2Cfilm");
+    
   <>
     <NavBar/>
     <Header/>
