@@ -48,13 +48,14 @@ def show_wines():
             200
         )
         return response
+    
     elif request.method == "POST":
         data=request.get_json()
         print(data)
         new_wines = Wine(
             name = data['name'],
             type = data['type'],
-            flavor_profile = data ['flavor_profile'],
+            flavor_profile = data['flavor_profile'],
             location = data['location'],
             price = data['price'],
         )

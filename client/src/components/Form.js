@@ -7,6 +7,9 @@ function Form(){
     const [type, setType] = useState("")
     const [price, setPrice] = useState("")
     const [flavorProfile, setFlavorProfile] = useState("")
+    const [user, setUser] = useState("")
+    const [comment, setComment] = useState("")
+    const [starReview, setStarReview] = useState("")
    
 
     function handleSubmit(e) {
@@ -21,7 +24,11 @@ function Form(){
                 location: location,
                 type: type,
                 price: price,
-                flavor_profile: flavorProfile, 
+                flavor_profile: flavorProfile,
+                user: user,
+                comment: comment,
+                star_review: starReview
+
             }),
           })
        
@@ -40,6 +47,15 @@ function Form(){
         <div>
             <form className="Form" onSubmit={handleSubmit} >
                 <label>
+                </label>
+                    <input 
+                        type="text" 
+                        name="User Name" 
+                        placeholder="User Name" 
+                        value={user}
+                        onChange={(e)=>setUser(e.target.value)}
+                    />
+                <label>
                 
                 </label>
                     <input 
@@ -49,8 +65,6 @@ function Form(){
                         value={name}
                         onChange={(e)=>setName(e.target.value)}
                     />
-               
-
                 <label>
                     <input
                         type="text"
@@ -80,13 +94,31 @@ function Form(){
                     />
                 </label>
                 <label>
-                <input
+                    <input
                         type="number"
                         name="Price"
                         step="0.01"
                         placeholder='Price' 
                         value={price}
                         onChange={(e) => setPrice(parseFloat(e.target.value))}
+                    />
+                </label>
+                <label>
+                    <input
+                        type="text"
+                        name="Review"
+                        placeholder='Review ' 
+                        value={comment}
+                        onChange={(e)=>setComment(e.target.value)}
+                    />
+                </label>
+                <label>
+                    <input
+                        type="number"
+                        name="Star Review"
+                        placeholder='Number of Stars' 
+                        value={starReview}
+                        onChange={(e)=>setStarReview(e.target.value)}
                     />
                 </label>
                 <button type="submit">Add Wine</button>

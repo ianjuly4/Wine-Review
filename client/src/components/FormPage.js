@@ -2,6 +2,8 @@ import React from "react"
 import NavBar from "./NavBar"
 import Form from "./Form"
 import FormHeader from "./FormHeader"
+import FormPatchHeader from "./FormPatchHeader"
+import PatchForm from "./PatchForm"
 
 function  FormPage(){
     return(
@@ -9,6 +11,8 @@ function  FormPage(){
             <NavBar/>
             <FormHeader />
             <Form />
+            <FormPatchHeader/>
+            <PatchForm/>
         </div>
     )
 }
