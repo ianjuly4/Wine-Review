@@ -19,9 +19,9 @@ api = Api(app)
 CORS(app)
 
 
-class Home(Resource):
 
-    def get(self):
+@app.route('/')
+def home():
 
         response_dict = {
             "message": "Welcome to the Wine RESTful API",
@@ -34,7 +34,7 @@ class Home(Resource):
 
         return response
 
-api.add_resource(Home, '/')
+#api.add_resource(Home, '/')
 
 @app.route('/wines', methods=["GET","POST"])
 def show_wines():
@@ -70,15 +70,28 @@ def show_wines():
 #api.add_resource(Wines, '/wines')
 
 
-class WineByID(Resource):
-    
-    def get(self, id):
-        response_dict = Wine.query.filter(Wine.id ==id).first().to_dict()
+
+@app.route('/wine/<int:id>', methods=["GET", "PATCH", "DELETE"]) 
+def wine_by_id():
+    wine_by_id =  Wine.query.filter(Wine.id ==id).first()
+
+    if request.method == "GET":
+        wine_by_id_dict = wine_by_id.to_dict()
         response = make_response(
-            response_dict,
+            wine_by_id_dict,
             200,
         )
+        return response
+    
+    elif request.method == "DELETE":
+        db.session.delete(wine_by_id)
+        db.session.commit()
 
+        response_dict = {"message": "record successfully deleted"}
+        response = make_response(
+            response_dict,
+            200
+        )
         return response
 
     def patch(self, id):
@@ -94,28 +107,13 @@ class WineByID(Resource):
 
         response = make_response(
             response_dict,
-            200
+            202
         )
 
         return response
     
-    def delete(self, id):
-
-        wine = Wine.query.filter(Wine.id == id).first()
-
-        db.session.delete(wine)
-        db.session.commit()
-
-        response_dict = {"message": "record successfully deleted"}
-
-        response = make_response(
-            response_dict,
-            200
-        )
-
-        return response
     
-api.add_resource(WineByID, '/wines/<int:id>')
+
 
 
 
