@@ -13,17 +13,17 @@ function PatchForm(){
       })
       return(
         <div className="PatchForm">
-            <ul>{wines.map((wine)=>{
+            <ul>{wines.map((wine, review)=>{
                 return <PatchWine key={wine.id}
-                user={wine.user}
+                user={wine.reviews[0]?.user?.name}
                 name={wine.name} 
                 image={wine.image}
                 location={wine.location}
                 type={wine.type}
                 price={wine.price}
                 flavorProfile={wine.flavor_profile}
-                comment={wine.comment}
-                starReview={wine.starReview}
+                comment={wine.reviews[0]?.comment} // Access the comment from the first review
+                starReview={wine.reviews[0]?.star_review}
                 wine={wine}
                 /> 
             })}
