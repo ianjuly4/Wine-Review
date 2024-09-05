@@ -22,7 +22,7 @@ if __name__ == '__main__':
         User.query.delete()
 
         wines = []
-        wines.append(Wine(name = 'Educated Guess', type='Cabernet Sauvignon', flavor_profile='Dark and Robust', location = 'Divino', price=20, image='https://www.onthevinecraftbeerwine.com/product-page/educated-guess-cabernet-sauvignon'))
+        wines.append(Wine(name = 'Educated Guess', type='Cabernet Sauvignon', flavor_profile='Dark and Robust', location = 'Divino', price=20))
 
         reviews = []
         reviews.append(Review(star_review= 3, comment="I liked that it was dark and robust, but didnt think it was worth $20", wine_id = 1, user_id = 1))

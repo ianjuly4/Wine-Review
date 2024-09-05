@@ -5,6 +5,7 @@ from flask_restful import Api, Resource
 from flask import Flask
 from flask_cors import CORS
 
+
 from config import app, db, api
 from models import Wine, Review, User
 
@@ -16,6 +17,7 @@ migrate = Migrate(app, db)
 db.init_app(app)
 api = Api(app)
 CORS(app)
+
 
 class Home(Resource):
 
@@ -34,43 +36,37 @@ class Home(Resource):
 
 api.add_resource(Home, '/')
 
-class Wines(Resource):
-    def get(self):
-        response_dict_list = [wine.to_dict() for wine in Wine.query.all()]
+@app.route('/wines', methods=["GET","POST"])
+def show_wines():
+    if request.method == "GET":
+        wines = Wine.query.all()
+        all_wines = []
+        for wine in wines:
+            all_wines.append(wine.to_dict())
         response = make_response(
-            response_dict_list,
-            200,
+            all_wines,
+            200
         )
         return response
-    
-    def post(self):
-        new_wine = Wine(
-            name= request.form['name'], 
-            type= request.form['type'],
-            flavor_profile= request.form['flavorProfile'],
-            location= request.form['location'],
-            price= request.form['price']
+    elif request.method == "POST":
+        data=request.get_json()
+        print(data)
+        new_wines = Wine(
+            name = data['name'],
+            type = data['type'],
+            flavor_profile = data ['flavor_profile'],
+            location = data['location'],
+            price = data['price'],
         )
-        new_user= User(
-            name= request.form['name']
-        )
-        new_review= Review(
-            star_review= request.form['star_review'],
-            comment= request.form['comment']
-        )
-
-        db.session.add(new_wine, new_user, new_review)
+        db.session.add(new_wines)
         db.session.commit()
-
-        response_dict = new_wine.to_dict()
-
+        new_wine_dict = new_wines.to_dict()
         response = make_response(
-            response_dict,
-            201,
+            new_wine_dict,
+            201
         )
         return response
-    
-api.add_resource(Wines, '/wines')
+#api.add_resource(Wines, '/wines')
 
 
 class WineByID(Resource):
@@ -119,6 +115,7 @@ class WineByID(Resource):
         return response
     
 api.add_resource(WineByID, '/wines/<int:id>')
+
 
 
 if __name__ == '__main__':

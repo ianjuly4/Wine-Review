@@ -20,8 +20,8 @@ class Wine(db.Model, SerializerMixin):
     type = db.Column(db.String)
     flavor_profile = db.Column(db.String)
     location = db.Column(db. String)
-    price = db.Column(db.Integer)
-    image = db.Column(db.String)
+    price = db.Column(db.Float)
+   
 
     reviews = db.relationship('Review', back_populates='wine', cascade='all, delete-orphan')
 

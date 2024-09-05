@@ -5,7 +5,10 @@ function Review(){
 
     useEffect(() =>{
         fetch("http://127.0.0.1:5555/reviews",{
-          method: "GET"
+          method: "GET",
+          headers:{
+            "Content-Type": "application/json",
+          },
       })
       .then((r)=>r.json())
       .then((reviewData)=>setReviews(reviewData))
