@@ -21,7 +21,7 @@ function PatchForm(){
                 location={wine.location}
                 type={wine.type}
                 price={wine.price}
-                flavorProfile={wine.flavorProfile}
+                flavorProfile={wine.flavor_profile}
                 comment={wine.comment}
                 starReview={wine.starReview}
                 wine={wine}

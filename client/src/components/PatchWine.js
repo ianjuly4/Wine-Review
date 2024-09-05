@@ -1,7 +1,16 @@
-import React from "react";
+import React, {useState} from "react";
 
-function PatchWine({user, name, type, location, flavorProfile, price, comment, starReview}){
-    
+function PatchWine({wine, user, name, type, location, flavorProfile, price, comment, starReview}){
+    const [patchWine, setPatchWine] = useState("")
+
+    const handleUpdateClick = () =>{
+        fetch(`http://127.0.0.1:5555/wines/${wine.id}`,{
+          method: "PATCH"
+      })
+      .then((r)=>r.json())
+      window.location.reload()
+      }
+
     return(
         <li className="PatchWine">
         <h3>{name}</h3>
@@ -11,7 +20,9 @@ function PatchWine({user, name, type, location, flavorProfile, price, comment, s
         <h5>Flavor Profile: {flavorProfile}</h5>
         <h5>Price: {price}</h5>
         <h5>Review: {comment}</h5>
-        <h5>Number of Reviews: {starReview}</h5> 
+        <h5>Number of Reviews: {starReview}</h5>
+        <button className="UPDATE" 
+        onClick={handleUpdateClick}>Update</button> 
       </li>
     )
     
