@@ -67,8 +67,6 @@ def show_wines():
             201
         )
         return response
-#api.add_resource(Wines, '/wines')
-
 
 
 @app.route('/wine/<int:id>', methods=["GET", "PATCH", "DELETE"]) 
