@@ -133,3 +133,19 @@
   font-size: 15px ;
   color: black;
 }
+.PatchForm {
+  justify-content: space-between;
+  color: black;
+}
+.PatchForm select,
+.PatchForm input,
+.PatchForm button {
+  text-align: center;
+  width: 180px;
+  height: 30px;
+  margin: 0 6px 6px;
+  background: white;
+  box-shadow: 5px 5px 10px rgb(98, 230, 230);
+  border-radius: 20px;
+  color: black
+}

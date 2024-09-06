@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 
-function PatchWine({wine, user, name, type, location, flavorProfile, price, comment, starReview}){
+function PatchWine({wine, user, name, type, location, 
+    flavorProfile, price, comment, starReview, number}){
     const [patchWine, setPatchWine] = useState("")
 
     const handleUpdateClick = () =>{
@@ -11,18 +12,19 @@ function PatchWine({wine, user, name, type, location, flavorProfile, price, comm
       window.location.reload()
       }
 
+
     return(
         <li className="PatchWine">
-        <h3>{name}</h3>
-        <h5>UserName: {user}</h5>
-        <h5>Location: {location}</h5>
-        <h5>Type: {type}</h5>
-        <h5>Flavor Profile: {flavorProfile}</h5>
-        <h5>Price: {price}</h5>
-        <h5>Review: {comment}</h5>
-        <h5>Number of Reviews: {starReview}</h5>
-        <button className="UPDATE" 
-        onClick={handleUpdateClick}>Update</button> 
+            <h6>{number}</h6>
+            <h3>{name}</h3>
+            <h5>UserName: {user}</h5>
+            <h5>Location: {location}</h5>
+            <h5>Type: {type}</h5>
+            <h5>Flavor Profile: {flavorProfile}</h5>
+            <h5>Price: {price}</h5>
+            <h5>Review: {comment}</h5>
+            <h5>Number of Reviews: {starReview}</h5>
+
       </li>
     )
     

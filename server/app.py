@@ -34,7 +34,7 @@ def home():
 
         return response
 
-#api.add_resource(Home, '/')
+
 
 @app.route('/wines', methods=["GET","POST"])
 def show_wines():
