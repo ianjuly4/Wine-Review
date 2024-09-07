@@ -48,10 +48,10 @@ class Wines(Resource):
         )
 
         return response
-    
+
     def post(self):
-        data=request.get_json()
-        print(data)
+        data = request.get_json()
+
         new_wine = Wine(
             name=data['name'],
             type=data['type'],
@@ -59,28 +59,29 @@ class Wines(Resource):
             price=data['price'],
             flavor_profile=data['flavor_profile'],
         )
+
         new_review = Review(
-            comment=data['comment'],
-            star_review=data['star_review'],
+            comment=data['review']['comment'],
+            star_review=data['review']['star_review'],
         )
+
         new_user = User(
-            name=data['name']
+            name=data['user']['name']
         )
-         # Associate the review with the wine
+
         new_wine.reviews.append(new_review)
-
-        # Associate the user with the wine
-        new_wine.users.append(new_user)
-
+        new_wine.user = new_user
 
         db.session.add(new_wine)
+        db.session.add(new_review)
+        db.session.add(new_user)
         db.session.commit()
 
         response_dict = {
-        'wine': new_wine.to_dict(),
-        'review': new_review.to_dict(),
-        'user': new_user.to_dict()
-    }
+            'wine': new_wine.to_dict(),
+            'review': new_review.to_dict(),
+            'user': new_user.to_dict()
+        }
 
         response = make_response(
             response_dict,
@@ -88,7 +89,7 @@ class Wines(Resource):
         )
 
         return response
-
+        
 api.add_resource(Wines, '/wines')
 
 class WineByID(Resource):
@@ -123,6 +124,20 @@ class WineByID(Resource):
 api.add_resource(WineByID, '/wines/<int:id>')
 
 
+class WineUsersById(Resource):
+    def get(self, id):
+        wine = Wine.query.filter(Wine.id == id).first()
+
+        users = [review.user.to_dict(rules=('reviews',))
+            for review in wine.reviews]
+        response = make_response(
+            users,
+            200
+        )
+        return response
+    
+api.add_resource(WineUsersById, '/wines/<int:id>/users')
+  
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)

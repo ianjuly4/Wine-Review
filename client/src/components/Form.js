@@ -15,39 +15,51 @@ function Form(){
     function handleSubmit(e) {
         e.preventDefault();
         fetch("http://127.0.0.1:5555/wines", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: name,
+            location: location,
+            type: type,
+            price: price,
+            flavor_profile: flavorProfile,
+            review: {
+              comment: comment,
+              star_review: starReview,
             },
-            body: JSON.stringify({
-                name: name,
-                location: location,
-                type: type,
-                price: price,
-                flavor_profile: flavorProfile,
-                user: user,
-                comment: comment,
-                star_review: starReview
-
-            }),
+            user: {
+              name: user,
+            },
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+            
           })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      
        
-        .then((r)=>r.json())
-        .then((newWine)=>console.log(newWine))
-        setName("")
-        setLocation("")
-        setType("")
-        setPrice("")
-        setFlavorProfile("")
-       
-    }
+        setName("");
+        setLocation("");
+        setType("");
+        setPrice("");
+        setFlavorProfile("");
+        setComment("");
+        setStarReview("");
+        setUser("");
+      }
+  
+
 
    
     return(
         <div>
             <form className="Form" onSubmit={handleSubmit} >
-                <label>
-                </label>
                     <input 
                         type="text" 
                         name="User Name" 
@@ -55,9 +67,7 @@ function Form(){
                         value={user}
                         onChange={(e)=>setUser(e.target.value)}
                     />
-                <label>
-                
-                </label>
+               
                     <input 
                         type="text" 
                         name="Wine Name" 

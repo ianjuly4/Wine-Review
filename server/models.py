@@ -5,6 +5,7 @@ from sqlalchemy.ext.associationproxy import association_proxy
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import validates
 db = SQLAlchemy()
+from flask_restful import Resource
 
 from config import db
 
