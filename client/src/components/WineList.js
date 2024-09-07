@@ -15,13 +15,18 @@ function WineList(){
 
 
 
-   useEffect(() =>{
-      fetch("/wines",{
-        method: "GET"
+  useEffect(() => {
+    fetch("http://127.0.0.1:5555/wines",{
+        method: "GET",
+        headers:{
+            "Content-Type": "application/json"
+        }
     })
-    .then((r)=>r.json())
-    .then((WineData)=>setWines(WineData))
-    })
+      .then((r) => r.json())
+      .then((WineData) => {
+        setWines(WineData);
+      });
+    }, [wines]);
 
     const onSearchWineNameChange = (text) => {
       setWineName(text)

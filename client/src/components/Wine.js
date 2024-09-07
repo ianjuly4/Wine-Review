@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react"
+import React, { useState} from "react"
 
 
 function Wine({name,location, price, handleDelete, type, wine, flavor_profile}){
@@ -6,11 +6,14 @@ function Wine({name,location, price, handleDelete, type, wine, flavor_profile}){
 
   const handleDeleteClick = () =>{
     fetch(`http://127.0.0.1:5555/wines/${wine.id}`,{
-      method: "DELETE"
+      method: "DELETE",
+      headers:{
+        "Content-Type": "application/json"
+      }
   })
   .then((r)=>r.json())
   .then(()=>handleDelete("My bad, thought you really liked that one"))
-  window.location.reload()
+ 
   }
   
   

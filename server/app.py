@@ -8,6 +8,7 @@ from flask_cors import CORS
 
 from config import app, db, api
 from models import Wine, Review, User
+CORS(app, origins='http://localhost:4000')
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
@@ -18,10 +19,9 @@ db.init_app(app)
 api = Api(app)
 CORS(app)
 
+class Home(Resource):
 
-
-@app.route('/')
-def home():
+    def get(self):
 
         response_dict = {
             "message": "Welcome to the Wine RESTful API",
@@ -34,83 +34,93 @@ def home():
 
         return response
 
+api.add_resource(Home, '/')
 
+class Wines(Resource):
 
-@app.route('/wines', methods=["GET","POST"])
-def show_wines():
-    if request.method == "GET":
-        wines = Wine.query.all()
-        all_wines = []
-        for wine in wines:
-            all_wines.append(wine.to_dict())
+    def get(self):
+
+        wine_dict_list = [wine.to_dict() for wine in Wine.query.all()]
+
         response = make_response(
-            all_wines,
-            200
-        )
-        return response
-    
-    elif request.method == "POST":
-        data=request.get_json()
-        print(data)
-        new_wines = Wine(
-            name = data['name'],
-            type = data['type'],
-            flavor_profile = data['flavor_profile'],
-            location = data['location'],
-            price = data['price'],
-        )
-        db.session.add(new_wines)
-        db.session.commit()
-        new_wine_dict = new_wines.to_dict()
-        response = make_response(
-            new_wine_dict,
-            201
-        )
-        return response
-
-
-@app.route('/wine/<int:id>', methods=["GET", "PATCH", "DELETE"]) 
-def wine_by_id():
-    wine_by_id =  Wine.query.filter(Wine.id ==id).first()
-
-    if request.method == "GET":
-        wine_by_id_dict = wine_by_id.to_dict()
-        response = make_response(
-            wine_by_id_dict,
+            wine_dict_list,
             200,
         )
+
         return response
     
-    elif request.method == "DELETE":
-        db.session.delete(wine_by_id)
+    def post(self):
+        data=request.get_json()
+        print(data)
+        new_wine = Wine(
+            name=data['name'],
+            type=data['type'],
+            location=data['location'],
+            price=data['price'],
+            flavor_profile=data['flavor_profile'],
+        )
+        new_review = Review(
+            comment=data['comment'],
+            star_review=data['star_review'],
+        )
+        new_user = User(
+            name=data['name']
+        )
+         # Associate the review with the wine
+        new_wine.reviews.append(new_review)
+
+        # Associate the user with the wine
+        new_wine.users.append(new_user)
+
+
+        db.session.add(new_wine)
         db.session.commit()
 
-        response_dict = {"message": "record successfully deleted"}
+        response_dict = {
+        'wine': new_wine.to_dict(),
+        'review': new_review.to_dict(),
+        'user': new_user.to_dict()
+    }
+
+        response = make_response(
+            response_dict,
+            201,
+        )
+
+        return response
+
+api.add_resource(Wines, '/wines')
+
+class WineByID(Resource):
+
+    def get(self, id):
+
+        wine_dict = Wine.query.filter_by(id=id).first().to_dict()
+
+        response = make_response(
+            wine_dict,
+            200,
+        )
+
+        return response
+    
+    def delete(self, id):
+
+        wine = Wine.query.filter(Wine.id == id).first()
+
+        db.session.delete(wine)
+        db.session.commit()
+
+        response_dict = {"message": "wine successfully deleted"}
+
         response = make_response(
             response_dict,
             200
         )
-        return response
-
-    elif request.method == "PATCH":
-        
-        for attr in request.form:
-            setattr(wine_by_id, attr, request.form[attr])
-
-        db.session.add(wine_by_id)
-        db.session.commit()
-
-        response_dict = wine_by_id.to_dict()
-
-        response = make_response(
-            response_dict,
-            202
-        )
 
         return response
-    
-    
 
+api.add_resource(WineByID, '/wines/<int:id>')
 
 
 

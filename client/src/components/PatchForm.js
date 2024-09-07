@@ -4,16 +4,20 @@ import PatchWine from "./PatchWine";
 function PatchForm(){
     const [wines, setWines] = useState([])
     const [number, setNumber] = useState("")
-    
 
-
-    useEffect(() =>{
-        fetch("http://127.0.0.1:5555/wines",{
-          method: "GET"
-      })
-      .then((r)=>r.json())
-      .then((WineData)=>setWines(WineData))
-      })
+    useEffect(() => {
+    fetch("http://127.0.0.1:5555/wines",{
+        method: "GET",
+        headers:{
+            "Content-Type": "application/json"
+        }
+    })
+      .then((r) => r.json())
+      .then((WineData) => {
+        setWines(WineData);
+      });
+    }, []);
+  
       return (
         <div className="PatchForm">
           <ul>

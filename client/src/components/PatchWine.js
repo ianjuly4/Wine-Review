@@ -6,7 +6,10 @@ function PatchWine({wine, user, name, type, location,
 
     const handleUpdateClick = () =>{
         fetch(`http://127.0.0.1:5555/wines/${wine.id}`,{
-          method: "PATCH"
+          method: "PATCH",
+          headers:{
+            "Content-Type": "application/json"
+          }
       })
       .then((r)=>r.json())
       window.location.reload()
@@ -23,7 +26,7 @@ function PatchWine({wine, user, name, type, location,
             <h5>Flavor Profile: {flavorProfile}</h5>
             <h5>Price: {price}</h5>
             <h5>Review: {comment}</h5>
-            <h5>Number of Reviews: {starReview}</h5>
+            <h5>Number of Stars: {starReview}</h5>
 
       </li>
     )
