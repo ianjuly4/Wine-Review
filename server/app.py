@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
-from flask import Flask, jsonify, make_response, request
+from flask import Flask, jsonify, make_response, request, json
 from flask_migrate import Migrate
 from flask_restful import Api, Resource
 from flask import Flask
 from flask_cors import CORS
-
 
 from config import app, db, api
 from models import Wine, Review, User
@@ -29,7 +28,8 @@ class Home(Resource):
 
         response = make_response(
             response_dict,
-            200
+            200,
+            
         )
 
         return response
@@ -39,19 +39,16 @@ api.add_resource(Home, '/')
 class Wines(Resource):
 
     def get(self):
-
         wine_dict_list = [wine.to_dict() for wine in Wine.query.all()]
-
         response = make_response(
             wine_dict_list,
             200,
         )
-
         return response
 
     def post(self):
         data = request.get_json()
-
+        print(data)
         new_wine = Wine(
             name=data['name'],
             type=data['type'],
@@ -62,7 +59,7 @@ class Wines(Resource):
 
         new_review = Review(
             comment=data['review']['comment'],
-            star_review=data['review']['star_review'],
+            star_review=data['review']['star_review']
         )
 
         new_user = User(
@@ -70,7 +67,7 @@ class Wines(Resource):
         )
 
         new_wine.reviews.append(new_review)
-        new_wine.user = new_user
+        new_review.user = new_user
 
         db.session.add(new_wine)
         db.session.add(new_review)
@@ -85,11 +82,9 @@ class Wines(Resource):
 
         response = make_response(
             response_dict,
-            201,
+            201   
         )
-
-        return response
-        
+        return response      
 api.add_resource(Wines, '/wines')
 
 class WineByID(Resource):
@@ -101,6 +96,7 @@ class WineByID(Resource):
         response = make_response(
             wine_dict,
             200,
+           
         )
 
         return response
@@ -116,7 +112,8 @@ class WineByID(Resource):
 
         response = make_response(
             response_dict,
-            200
+            200,
+           
         )
 
         return response
@@ -132,7 +129,8 @@ class WineUsersById(Resource):
             for review in wine.reviews]
         response = make_response(
             users,
-            200
+            200,
+            
         )
         return response
     

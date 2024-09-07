@@ -35,7 +35,6 @@ class Review(db.Model, SerializerMixin):
 
     serialize_rules = ('-wine.reviews', '-user.reviews',)
 
-
     id = db.Column(db.Integer, primary_key=True)
     star_review = db.Column(db.Integer)
     comment = db.Column(db.String)

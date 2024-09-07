@@ -28,10 +28,12 @@ function Form(){
             review: {
               comment: comment,
               star_review: starReview,
+        
             },
             user: {
-              name: user,
-            },
+                name: user,
+              },  
+            
           }),
         })
           .then((response) => response.json())
@@ -42,8 +44,7 @@ function Form(){
           .catch((error) => {
             console.error("Error:", error);
           });
-      
-       
+        
         setName("");
         setLocation("");
         setType("");
@@ -53,20 +54,19 @@ function Form(){
         setStarReview("");
         setUser("");
       }
-  
-
-
    
     return(
         <div>
             <form className="Form" onSubmit={handleSubmit} >
-                    <input 
-                        type="text" 
-                        name="User Name" 
-                        placeholder="User Name" 
-                        value={user}
-                        onChange={(e)=>setUser(e.target.value)}
-                    />
+                        <input 
+                            type="text" 
+                            name="User Name" 
+                            placeholder="User Name" 
+                            value={user}
+                            onChange={(e) => {
+                            setUser(e.target.value);
+                            }}
+                        />
                
                     <input 
                         type="text" 
