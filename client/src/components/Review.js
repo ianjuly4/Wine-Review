@@ -1,28 +1,21 @@
 import React, {useState, useEffect} from 'react'
 
-function Review(){
-    const[review, setReviews] = useState("")
+function Review({wine, user, name, type, location, 
+  flavorProfile, price, comment, starReview, number}){
 
-    useEffect(() =>{
-        fetch("http://127.0.0.1:5555/reviews",{
-          method: "GET",
-          headers:{
-            "Content-Type": "application/json",
-          },
-      })
-      .then((r)=>r.json())
-      .then((reviewData)=>setReviews(reviewData))
-      })
+  
+  return (
+    <li className="Wine">
+      <h3>{name}</h3>
+      <h5>Type: {type}</h5>
+      <h5>Flavor Profile: {flavorProfile}</h5>
+      <h5>Price: {price}</h5>
       
-    return(
-        <li className="Review">
-        <h3>{review.comment}</h3>
-       
-       
-      </li>
-    )
-}
-
+     
+    </li>
+  );
     
+}
     
 export default Review
+

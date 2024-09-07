@@ -28,8 +28,8 @@ class Home(Resource):
 
         response = make_response(
             response_dict,
-            200,
-            
+            200,  
+
         )
 
         return response
@@ -84,7 +84,8 @@ class Wines(Resource):
             response_dict,
             201   
         )
-        return response      
+        return response     
+     
 api.add_resource(Wines, '/wines')
 
 class WineByID(Resource):
@@ -95,8 +96,8 @@ class WineByID(Resource):
 
         response = make_response(
             wine_dict,
-            200,
-           
+            200, 
+
         )
 
         return response
@@ -113,7 +114,7 @@ class WineByID(Resource):
         response = make_response(
             response_dict,
             200,
-           
+
         )
 
         return response
@@ -121,20 +122,18 @@ class WineByID(Resource):
 api.add_resource(WineByID, '/wines/<int:id>')
 
 
-class WineUsersById(Resource):
-    def get(self, id):
-        wine = Wine.query.filter(Wine.id == id).first()
-
-        users = [review.user.to_dict(rules=('reviews',))
-            for review in wine.reviews]
+class WineReviews(Resource):
+    
+       def get(self):
+        wine_dict_list = [wine.to_dict() for wine in Wine.query.all()]
         response = make_response(
-            users,
+            wine_dict_list,
             200,
             
         )
         return response
-    
-api.add_resource(WineUsersById, '/wines/<int:id>/users')
+
+api.add_resource(WineReviews, '/wines/reviews')
   
 
 if __name__ == '__main__':
