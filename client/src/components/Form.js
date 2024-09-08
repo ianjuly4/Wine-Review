@@ -58,14 +58,14 @@ function Form(){
     return(
         <div>
             <form className="Form" onSubmit={handleSubmit} >
-                        <input 
-                            type="text" 
-                            name="User Name" 
-                            placeholder="User Name" 
-                            value={user}
-                            onChange={(e) => {
-                            setUser(e.target.value);
-                            }}
+                    <input 
+                        type="text" 
+                        name="User Name" 
+                        placeholder="User Name" 
+                        value={user}
+                        onChange={(e) => {
+                        setUser(e.target.value);
+                        }}
                         />
                
                     <input 

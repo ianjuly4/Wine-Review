@@ -46,7 +46,7 @@ function Wine({ name, location, price, handleDelete, type, wine, flavor_profile 
         </div>
       )}
 
-      {/* Render different content based on the click state */}
+      
       {isClicked ? (
         users.map((user) => (
         <div>

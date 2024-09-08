@@ -17,9 +17,9 @@ function NavBar(){
             </NavLink>
 
             <NavLink
-            to="/review"
+            to="/about"
             className="nav-link">
-                Reviews
+                About
             </NavLink>
         </nav>
     )

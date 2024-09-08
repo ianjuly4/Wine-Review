@@ -118,6 +118,25 @@ class WineByID(Resource):
         )
 
         return response
+    
+    def patch(self, id):
+
+        wine = Wine.query.filter(Wine.id == id).first()
+        for attr in request.form:
+            setattr(wine, attr, request.form[attr])
+
+        db.session.add(wine)
+        db.session.commit()
+
+        response_dict = wine.to_dict()
+
+        response = make_response(
+            response_dict,
+            201
+        )
+
+        return response
+
 
 api.add_resource(WineByID, '/wines/<int:id>')
 

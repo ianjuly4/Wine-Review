@@ -25,24 +25,79 @@ function PatchForm(){
         setWines(WineData);
       });
     }, []);
+
+    function handleSubmit(e) {
+      e.preventDefault();
+      fetch(`http://127.0.0.1:5555/wines/${number}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: name,
+          location: location,
+          type: type,
+          price: price,
+          flavor_profile: flavorProfile,
+          review: {
+            comment: comment,
+            star_review: starReview,
+      
+          },
+          user: {
+              name: user,
+            },  
+          
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+      
+      setName("");
+      setNumber("")
+      setLocation("");
+      setType("");
+      setPrice("");
+      setFlavorProfile("");
+      setComment("");
+      setStarReview("");
+      setUser("");
+    }
+
   
       return (
-        <div className="PatchForm">
-          <ul>
-            {wines.map((wine, index) => (
-              <PatchWine
-                key={wine.id}
-                number={index + 1} 
-                name={wine.name}
-                image={wine.image}
-                location={wine.location}
-                type={wine.type}
-                price={wine.price}
-                flavorProfile={wine.flavor_profile}
-                wine={wine}
-              />
-            ))}
-          </ul>
+        <div>
+          <form className="PatchForm" onSubmit={handleSubmit}>
+            <ul>
+              {wines.map((wine, index) => (
+                <PatchWine
+                  key={wine.id}
+                  number={index + 1} 
+                  name={wine.name}
+                  image={wine.image}
+                  location={wine.location}
+                  type={wine.type}
+                  price={wine.price}
+                  flavorProfile={wine.flavor_profile}
+                  wine={wine}
+                />
+              ))}
+            </ul>
+            <input 
+                type="number" 
+                name="Wine Number" 
+                placeholder="Wine Number" 
+                value={number}
+                onChange={(e) => {
+                setNumber(e.target.value)}}
+                />
+          
             <input 
                 type="text" 
                 name="User Name" 
@@ -86,23 +141,23 @@ function PatchForm(){
                 placeholder='Price' 
                 value={price}
                 onChange={(e) => setPrice(parseFloat(e.target.value))}
-                    />
+                />
             <input
                 type="text"
                 name="Review"
                 placeholder='Review ' 
                 value={comment}
                 onChange={(e)=>setComment(e.target.value)}
-                    />
+                />
             <input
                 type="number"
                 name="Star Review"
                 placeholder='Number of Stars' 
                 value={starReview}
                 onChange={(e)=>setStarReview(e.target.value)}
-                    />
-  
+                />
                 <button type="submit">Update Wine</button>
+            </form>
         </div>
       );
 }
