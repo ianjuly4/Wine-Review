@@ -33,15 +33,12 @@ function PatchForm(){
               <PatchWine
                 key={wine.id}
                 number={index + 1} 
-                user={wine.reviews[0]?.user?.name}
                 name={wine.name}
                 image={wine.image}
                 location={wine.location}
                 type={wine.type}
                 price={wine.price}
                 flavorProfile={wine.flavor_profile}
-                comment={wine.reviews[0]?.comment}
-                starReview={wine.reviews[0]?.star_review}
                 wine={wine}
               />
             ))}

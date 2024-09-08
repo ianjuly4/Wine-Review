@@ -1,33 +1,63 @@
-import React, { useState} from "react"
+import React, { useState } from "react";
 
+function Wine({ name, location, price, handleDelete, type, wine, flavor_profile }) {
+  const [isClicked, setIsClicked] = useState(false);
+  const [users, setUsers] = useState([])
+  const [comments, setComments] = useState("")
+  const [starReviews, setStarReviews] = useState("")
 
-function Wine({name,location, price, handleDelete, type, wine, flavor_profile}){
-  
-
-  const handleDeleteClick = () =>{
-    fetch(`http://127.0.0.1:5555/wines/${wine.id}`,{
+  const handleDeleteClick = () => {
+    fetch(`http://127.0.0.1:5555/wines/${wine.id}`, {
       method: "DELETE",
-      headers:{
+      headers: {
         "Content-Type": "application/json"
       }
-  })
-  .then((r)=>r.json())
-  .then(()=>handleDelete("My bad, thought you really liked that one"))
- 
-  }
-  
-  
+    })
+      .then((r) => r.json())
+      .then(() => handleDelete("My bad, thought you really liked that one"));
+  };
+
+  const handleClick = () => {
+    fetch(`http://127.0.0.1:5555/wines/${wine.id}/users`,{
+      method: "Get",
+      headers:{
+         "Content-Type": "application/json"
+      }
+    })
+    .then((r) => r.json())
+    .then((UserData) => {
+      setUsers(UserData);
+    });
+    setIsClicked(!isClicked);
+  };
+
   return (
-      <li className="Wine">
-        <h3>{name}</h3>
-        <h5>Location: {location}</h5>
-        <h5>Type: {type}</h5>
-        <h5>Flavor Profile: {flavor_profile}</h5>
-        <h5>Price: {price}</h5>
-        <button className="Remove" 
-        onClick={handleDeleteClick}>Remove</button>
-       
-      </li>
-    );
-}  
-export default Wine
+    <li className="Wine" onClick={handleClick}>
+      {isClicked ? null : (
+        <div>
+          <h3>{name}</h3>
+          <h5>Location: {location}</h5>
+          <h5>Type: {type}</h5>
+          <h5>Flavor Profile: {flavor_profile}</h5>
+          <h5>Price: {price}</h5>
+          <button className="Remove" onClick={handleDeleteClick}>
+            Remove
+          </button>
+        </div>
+      )}
+
+      {/* Render different content based on the click state */}
+      {isClicked ? (
+        users.map((user) => (
+        <div>
+          <h6>{user.name}</h6>
+          <p>{user.reviews[0]?.comment}</p>
+         <h6>{user.reviews[0]?.star_review} stars</h6>
+        </div>
+        ))
+      ) : null}
+    </li>
+  );
+}
+
+export default Wine;

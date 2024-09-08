@@ -14,24 +14,22 @@ function  ReviewPage(){
           },
       })
       .then((r)=>r.json())
-      .then((wineData)=>setWines(wineData))
+      .then((userData)=>setWines(userData))
       },[])
       
     return(
         <div className="ReviewPage">
             <NavBar/>
             <ReviewHeader />
-            <ul>{wines.map((wine, index)=>{
-                return <Review key={wine.id}
-                number={index + 1} 
-                user={wine.reviews[0]?.user?.name}
-                name={wine.name} 
-                type={wine.type}
-                price={wine.price}
-                flavor_profile={wine.flavor_profile}
-                comment={wine.reviews[0]?.comment}
-                starReview={wine.reviews[0]?.star_review}
-                wine={wine}
+            <ul>{wines.map((user)=>{
+                return <Review key={user.id}
+                name={user.name} 
+                type={user.type}
+                price={user.price}
+                flavor_profile={user.flavor_profile}
+                comment={user.reviews[0]?.comment}
+                starReview={user.reviews[0]?.star_review}
+               
             />
             })
     }</ul>

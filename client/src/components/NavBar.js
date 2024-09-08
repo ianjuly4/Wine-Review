@@ -13,7 +13,7 @@ function NavBar(){
             <NavLink
             to="/FormPage"
             className="nav-link">
-                Add 
+            Add/Update 
             </NavLink>
 
             <NavLink
