@@ -37,7 +37,7 @@
   width: 270px;
   margin: 0 6px 6px;
   background:white;
-  box-shadow: 5px 5px 10px rgb(98, 230, 230);
+  box-shadow: 5px 5px 10px brown;
   border-radius: 20px;
   text-decoration: none;
   text-align: center;
@@ -64,7 +64,7 @@
   height: 30px;
   margin: 0 6px 6px;
   background: white;
-  box-shadow: 5px 5px 10px rgb(98, 230, 230);
+  box-shadow: 5px 5px 10px brown;
   border-radius: 20px;
 }
 .nav-link{
@@ -108,7 +108,7 @@
   height: 30px;
   margin: 0 6px 6px;
   background: white;
-  box-shadow: 5px 5px 10px rgb(98, 230, 230);
+  box-shadow: 5px 5px 10px brown;
   border-radius: 20px;
   color: black
 }
@@ -126,7 +126,7 @@
   width: 270px;
   margin: 0 6px 6px;
   background:white;
-  box-shadow: 5px 5px 10px rgb(98, 230, 230);
+  box-shadow: 5px 5px 10px brown;
   border-radius: 20px;
   text-decoration: none;
   text-align: center;
@@ -145,7 +145,7 @@
   height: 30px;
   margin: 0 6px 6px;
   background: white;
-  box-shadow: 5px 5px 10px rgb(98, 230, 230);
+  box-shadow: 5px 5px 10px brown;
   border-radius: 20px;
   color: black
 }

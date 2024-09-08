@@ -26,7 +26,7 @@ function WineList(){
       .then((WineData) => {
         setWines(WineData);
       });
-    }, [wines]);
+    }, []);
 
     const onSearchWineNameChange = (text) => {
       setWineName(text)
