@@ -97,15 +97,7 @@ function PatchForm(){
                 onChange={(e) => {
                 setNumber(e.target.value)}}
                 />
-          
-            <input 
-                type="text" 
-                name="User Name" 
-                placeholder="User Name" 
-                value={user}
-                onChange={(e) => {
-                setUser(e.target.value)}}
-                />
+
             <input 
                 type="text" 
                 name="Wine Name" 
@@ -113,20 +105,21 @@ function PatchForm(){
                 value={name}
                 onChange={(e)=>setName(e.target.value)}
                 />
-            <input
-                type="text"
-                name="Wine Location"
-                placeholder='Restaurant or Winery' 
-                value={location}
-                onChange={(e)=>setLocation(e.target.value)}
-                />
-            <input
+             <input
                 type="text"
                 name="Wine Type"
                 placeholder='Wine Type' 
                 value={type}
                 onChange={(e)=>setType(e.target.value)}
                 />
+            <input
+                type="text"
+                name="Wine Location"
+                placeholder='Location' 
+                value={location}
+                onChange={(e)=>setLocation(e.target.value)}
+                />
+      
             <input
                 type="text"
                 name="Flavor Profile"
@@ -142,22 +135,9 @@ function PatchForm(){
                 value={price}
                 onChange={(e) => setPrice(parseFloat(e.target.value))}
                 />
-            <input
-                type="text"
-                name="Review"
-                placeholder='Review ' 
-                value={comment}
-                onChange={(e)=>setComment(e.target.value)}
-                />
-            <input
-                type="number"
-                name="Star Review"
-                placeholder='Number of Stars' 
-                value={starReview}
-                onChange={(e)=>setStarReview(e.target.value)}
-                />
                 <button type="submit">Update Wine</button>
             </form>
+
         </div>
       );
 }

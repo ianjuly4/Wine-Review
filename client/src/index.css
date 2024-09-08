@@ -141,7 +141,7 @@
 .PatchForm input,
 .PatchForm button {
   text-align: center;
-  width: 180px;
+  width: 150px;
   height: 30px;
   margin: 0 6px 6px;
   background: white;
@@ -163,4 +163,19 @@
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   color: white
+}
+.ReviewHeader{
+  text-align: center;
+  font-size: 30px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  color: white
+}
+.ReviewPage {
+  margin: 2rem auto;
+  padding: 1rem 2rem;
+  max-width: 1200px;
+  box-shadow: 20px 20px 25px rgba(33, 33, 33, 0.2);
+  border-radius: 25px;
+  background-color: #cccccc;
 }

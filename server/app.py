@@ -154,6 +154,8 @@ class WineUsersById(Resource):
         return response
 api.add_resource(WineUsersById, '/wines/<int:id>/users')
 
+class 
+
   
 
 if __name__ == '__main__':
