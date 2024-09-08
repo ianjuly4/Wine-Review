@@ -40,20 +40,17 @@ function WineList(){
     }
   
     const handleDelete = (clickedDelete) => {
-      const updatedWines = wines.filter((wine)=>{
-       return wine.id !== clickedDelete.id;
-       setWines(updatedWines)
+      const updatedWines = wines.filter((wine) => wine.id !== clickedDelete.id);
+      setWines(updatedWines);
+    };
+    
+    const filteredwines = wines
+      .filter((wine) => {
+        if (winePrice === "All") return true;
+        return wine.price === winePrice;
       })
-    }
-  
-    const filteredwines = wines.filter((wine)=>{
-      if(winePrice  === "All") return true;
-      return wine.price === winePrice
-    }).filter((wine)=>{
-      return wine.type.toLowerCase().includes(wineType.toLowerCase())
-    }).filter((wine)=>{
-      return wine.name.toLowerCase().includes(wineName.toLowerCase())
-    })
+      .filter((wine) => wine.type.toLowerCase().includes(wineType.toLowerCase()))
+      .filter((wine) => wine.name.toLowerCase().includes(wineName.toLowerCase()));
 
   return(
     
@@ -81,8 +78,10 @@ function WineList(){
       wine={wine}
       handleDelete={handleDelete}
       />
+      
     })
     }</ul>
+    <h5>Please click on individual wines for their respective users and user-reviews. </h5>
   </>
   </div>
   )

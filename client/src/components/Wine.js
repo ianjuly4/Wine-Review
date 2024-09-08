@@ -49,13 +49,13 @@ function Wine({ name, location, price, handleDelete, type, wine, flavor_profile 
       
       {isClicked ? (
         users.map((user) => (
-        <div>
+          <div key={user.id}>
           <h6>{user.name}</h6>
           <p>{user.reviews[0]?.comment}</p>
-         <h6>{user.reviews[0]?.star_review} stars</h6>
+          <h6>{user.reviews[0]?.star_review} stars</h6>
         </div>
         ))
-      ) : null}
+      ) : null} 
     </li>
   );
 }
