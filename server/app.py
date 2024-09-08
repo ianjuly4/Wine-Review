@@ -152,7 +152,9 @@ class WineUsersById(Resource):
         )
 
         return response
+    
 api.add_resource(WineUsersById, '/wines/<int:id>/users')
+
 
 
 
