@@ -120,10 +120,10 @@ class WineByID(Resource):
         return response
     
     def patch(self, id):
-
+        data = request.get_json()
         wine = Wine.query.filter(Wine.id == id).first()
-        for attr in request.form:
-            setattr(wine, attr, request.form[attr])
+        for attr in data:
+            setattr(wine, attr, data[attr])
 
         db.session.add(wine)
         db.session.commit()
@@ -154,7 +154,7 @@ class WineUsersById(Resource):
         return response
 api.add_resource(WineUsersById, '/wines/<int:id>/users')
 
-class 
+
 
   
 

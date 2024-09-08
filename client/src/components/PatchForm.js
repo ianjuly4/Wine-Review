@@ -9,9 +9,7 @@ function PatchForm(){
     const [type, setType] = useState("")
     const [price, setPrice] = useState("")
     const [flavorProfile, setFlavorProfile] = useState("")
-    const [user, setUser] = useState("")
-    const [comment, setComment] = useState("")
-    const [starReview, setStarReview] = useState("")
+    
 
     useEffect(() => {
     fetch("http://127.0.0.1:5555/wines",{
@@ -38,40 +36,25 @@ function PatchForm(){
           location: location,
           type: type,
           price: price,
-          flavor_profile: flavorProfile,
-          review: {
-            comment: comment,
-            star_review: starReview,
-      
-          },
-          user: {
-              name: user,
-            },  
-          
+          flavor_profile: flavorProfile
         }),
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
-          
+          console.log(data)
         })
         .catch((error) => {
           console.error("Error:", error);
         });
-      
+    
       setName("");
-      setNumber("")
+      setNumber("");
       setLocation("");
       setType("");
       setPrice("");
-      setFlavorProfile("");
-      setComment("");
-      setStarReview("");
-      setUser("");
-    }
-
-  
-      return (
+      setFlavorProfile("")
+    }      
+    return (
         <div>
           <form className="PatchForm" onSubmit={handleSubmit}>
             <ul>
