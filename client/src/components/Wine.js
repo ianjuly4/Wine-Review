@@ -31,28 +31,42 @@ function Wine({ name, location, price, handleDelete, type, wine, flavor_profile 
     setIsClicked(!isClicked);
   };
 
+  const displayStarRating = (rating) => {
+    let stars = "";
+
+    for (let i = 1; i <= 5; i++) {
+      if (i <= rating) {
+        stars += "★";
+      } else {
+        stars += "☆";
+      }
+    }
+
+    return stars;
+  };
+
   return (
     <li className="Wine" onClick={handleClick}>
       {isClicked ? null : (
         <div>
           <h3>{name}</h3>
+          <h5>{type}</h5>
           <h5>Location: {location}</h5>
-          <h5>Type: {type}</h5>
-          <h5>Flavor Profile: {flavor_profile}</h5>
-          <h5>Price: {price}</h5>
+          <h5>Flavor: {flavor_profile}</h5>
+          <h5>${price}</h5>
           <button className="Remove" onClick={handleDeleteClick}>
             Remove
           </button>
         </div>
       )}
 
-      
+
       {isClicked ? (
         users.map((user) => (
           <div key={user.id}>
-          <h6>{user.name}</h6>
+          <h4>{user.name}</h4>
+          <h6>{displayStarRating(user.reviews[0]?.star_review)}</h6>
           <p>{user.reviews[0]?.comment}</p>
-          <h6>{user.reviews[0]?.star_review} stars</h6>
         </div>
         ))
       ) : null} 

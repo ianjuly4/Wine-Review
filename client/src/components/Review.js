@@ -17,9 +17,9 @@ function Review({ name, comment, starReview, user }) {
   
     return (
       <div className="Review">
-        <h6>{name}</h6>
+        <h2>{name}</h2>
         <h6>{user}</h6>
-        <p>{displayStarRating(starReview)}</p>
+        <h6>{displayStarRating(starReview)}</h6>
         <p>{comment}</p>
       </div>
     );
