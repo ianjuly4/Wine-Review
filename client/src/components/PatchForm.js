@@ -53,20 +53,17 @@ function PatchForm({ onSubmit }) {
   return (
     <div>
       <form className="PatchForm" onSubmit={formik.handleSubmit}>
+      {formik.touched.number && formik.errors.number ? (
+          <p style={{color:"Black", textAlign:"center"}}>{formik.errors.number}</p>
+        ) : null}
         <input
           type="number"
           id="number"
           placeholder="Wine Number"
           value={formik.values.number}
-          onChange={(e) => {
-            formik.handleChange(e);
-            setNumber(e.target.value);
-          }}
+          onChange={formik.handleChange}
           onBlur={formik.handleBlur}
         />
-        {formik.touched.number && formik.errors.number ? (
-          <p style={{ color: "red" }}>{formik.errors.number}</p>
-        ) : null}
 
         <input
           type="text"
@@ -76,9 +73,7 @@ function PatchForm({ onSubmit }) {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
         />
-        {formik.touched.name && formik.errors.name ? (
-          <p style={{ color: "red" }}>{formik.errors.name}</p>
-        ) : null}
+        
 
         <input
           type="text"
@@ -88,9 +83,7 @@ function PatchForm({ onSubmit }) {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
         />
-        {formik.touched.type && formik.errors.type ? (
-          <p style={{ color: "red" }}>{formik.errors.type}</p>
-        ) : null}
+      
 
         <input
           type="text"
@@ -100,9 +93,7 @@ function PatchForm({ onSubmit }) {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
         />
-        {formik.touched.location && formik.errors.location ? (
-          <p style={{ color: "red" }}>{formik.errors.location}</p>
-        ) : null}
+      
 
         <input
           type="text"
@@ -112,9 +103,7 @@ function PatchForm({ onSubmit }) {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
         />
-        {formik.touched.flavorProfile && formik.errors.flavorProfile ? (
-          <p style={{ color: "red" }}>{formik.errors.flavorProfile}</p>
-        ) : null}
+      
 
         <input
           type="number"
@@ -125,11 +114,8 @@ function PatchForm({ onSubmit }) {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
         />
-        {formik.touched.price && formik.errors.price ? (
-          <p style={{ color: "red" }}>{formik.errors.price}</p>
-        ) : null}
-
         <button type="submit">Update Wine</button>
+        
       </form>
     </div>
   );
