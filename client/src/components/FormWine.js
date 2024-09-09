@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 
-function PatchWine({wine, user, name, type, location, 
+function FormWine({wine, user, name, type, location, 
     flavorProfile, price, comment, starReview, number}){
     const [patchWine, setPatchWine] = useState("")
 
@@ -17,17 +17,17 @@ function PatchWine({wine, user, name, type, location,
 
 
     return(
-        <li className="PatchWine">
+        <li className="FormWine">
             <h6>{number}</h6>
             <h3>{name}</h3>
             <h5>Location: {location}</h5>
-            <h5>Type: {type}</h5>
-            <h5>Flavor Profile: {flavorProfile}</h5>
-            <h5>Price: {price}</h5>
+            <h5>{type}</h5>
+            <h5>Flavor: {flavorProfile}</h5>
+            <h5>${price}</h5>
 
 
       </li>
     )
     
 }
-export default PatchWine
+export default FormWine

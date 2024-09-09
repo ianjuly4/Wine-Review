@@ -1,6 +1,7 @@
 import RestaurantList from "./components/WineList"
 import FormPage from "./components/FormPage";
 import AboutPage from "./components/AboutPage";
+import ReviewPage from "./components/ReviewPage"
 
 
 const routes = [
@@ -12,6 +13,11 @@ const routes = [
   {
     path: "/FormPage",
     element: <FormPage />,
+  },
+
+  {
+    path: "/ReviewPage",
+    element: <ReviewPage />,
   },
 
   {

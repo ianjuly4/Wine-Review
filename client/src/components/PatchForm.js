@@ -1,138 +1,138 @@
-import React, {useEffect, useState} from "react";
-import { useFormik} from "formik";
-import PatchWine from "./PatchWine";
+import React, { useEffect, useState } from "react";
+import { useFormik, resetForm } from "formik";
 import * as yup from "yup";
 
-function PatchForm(){
-    const [wines, setWines] = useState([])
-    const [number, setNumber] = useState("")
-    
+function PatchForm({ onSubmit }) {
+  const [number, setNumber] = useState("");
 
-    useEffect(() => {
-    fetch("wines",{
-        method: "GET",
-        headers:{
-            "Content-Type": "application/json"
-        }
-    })
-      .then((r) => r.json())
-      .then((WineData) => {
-        setWines(WineData);
-      });
-    }, []);
+  const formSchema = yup.object().shape({
+    number: yup
+      .number()
+      .positive()
+      .integer()
+      .required("Must enter number of a listed wine")
+      .typeError("Please enter an Integer")
+      .max(125),
+    price: yup
+      .number()
+      .positive()
+      .typeError("Please enter a valid price")
+      .max(100),
+  
+  });
 
-    const formSchema = yup.object().shape({
-      name: yup.string().required("Must enter a name").max(15),
-      type: yup.string(),
-      location: yup.string(),
-      flavorProfile: yup.string(),
-      price: yup
-        .number()
-        .positive()
-        .integer()
-        .required("Must enter a price")
-        .typeError("Please enter an Integer")
-        .max(125),
-    });
-
-    const formik = useFormik({
-      initialValues: {
-        name: "",
-        location: "",
-        type:"",
-        price:"",
-        flavorProfile:"",
-      },
-      validationSchema: formSchema,
-        onSubmit: (values) => {
-
-        fetch(`/wines/${number}`, {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(values, null, 2),
-        }).then((response) => response.json())
+  const formik = useFormik({
+    initialValues: {
+      number: "",
+      name: "",
+      location: "",
+      type: "",
+      price: "",
+      flavorProfile: "",
+    },
+    validationSchema: formSchema,
+    onSubmit: (values,{resetForm}) => {
+      fetch(`/wines/${values.number}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values, null, 2),
+      })
+        .then((response) => response.json())
         .then((data) => {
-          console.log(data)
+          onSubmit(data);  
+          resetForm()
         })
         .catch((error) => {
           console.error("Error:", error);
         });
-      },
     },
-    
+  });
+
+  return (
+    <div>
+      <form className="PatchForm" onSubmit={formik.handleSubmit}>
+        <input
+          type="number"
+          id="number"
+          placeholder="Wine Number"
+          value={formik.values.number}
+          onChange={(e) => {
+            formik.handleChange(e);
+            setNumber(e.target.value);
+          }}
+          onBlur={formik.handleBlur}
+        />
+        {formik.touched.number && formik.errors.number ? (
+          <p style={{ color: "red" }}>{formik.errors.number}</p>
+        ) : null}
+
+        <input
+          type="text"
+          id="name"
+          placeholder="Wine Name"
+          value={formik.values.name}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+        />
+        {formik.touched.name && formik.errors.name ? (
+          <p style={{ color: "red" }}>{formik.errors.name}</p>
+        ) : null}
+
+        <input
+          type="text"
+          id="type"
+          placeholder="Wine Type"
+          value={formik.values.type}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+        />
+        {formik.touched.type && formik.errors.type ? (
+          <p style={{ color: "red" }}>{formik.errors.type}</p>
+        ) : null}
+
+        <input
+          type="text"
+          id="location"
+          placeholder="Location"
+          value={formik.values.location}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+        />
+        {formik.touched.location && formik.errors.location ? (
+          <p style={{ color: "red" }}>{formik.errors.location}</p>
+        ) : null}
+
+        <input
+          type="text"
+          id="flavorProfile"
+          placeholder="Flavor Profile"
+          value={formik.values.flavorProfile}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+        />
+        {formik.touched.flavorProfile && formik.errors.flavorProfile ? (
+          <p style={{ color: "red" }}>{formik.errors.flavorProfile}</p>
+        ) : null}
+
+        <input
+          type="number"
+          id="price"
+          step="0.01"
+          placeholder="Price"
+          value={formik.values.price}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+        />
+        {formik.touched.price && formik.errors.price ? (
+          <p style={{ color: "red" }}>{formik.errors.price}</p>
+        ) : null}
+
+        <button type="submit">Update Wine</button>
+      </form>
+    </div>
   );
-
-    return (
-        <div>
-          <form className="PatchForm" onSubmit={formik.handleSubmit}>
-            <ul>
-              {wines.map((wine, index) => (
-                <PatchWine
-                  key={wine.id}
-                  number={index + 1} 
-                  name={wine.name}
-                  image={wine.image}
-                  location={wine.location}
-                  type={wine.type}
-                  price={wine.price}
-                  flavorProfile={wine.flavor_profile}
-                  wine={wine}
-                />
-              ))}
-            </ul>
-            <input 
-              type="number" 
-              id="number" 
-              placeholder="Wine Number" 
-              value={formik.values.number}
-              onChange={(e) => {
-                formik.handleChange(e);
-                setNumber(e.target.value);
-              }}
-            />
-            <input 
-                type="text" 
-                id="name" 
-                placeholder="Wine Name" 
-                value={formik.values.name}
-                onChange={formik.handleChange}
-                />
-             <input
-                type="text"
-                id="type"
-                placeholder='Wine Type' 
-                value={formik.values.type}
-                onChange={formik.handleChange}
-                />
-            <input
-                type="text"
-                id="location"
-                placeholder='Location' 
-                value={formik.values.location}
-                onChange={formik.handleChange}
-                />
-      
-            <input
-                type="text"
-                id="flavorProfile"
-                placeholder='Flavor Profile' 
-                value={formik.values.flavorProfile}
-                onChange={formik.handleChange}
-                  />
-            <input
-                type="number"
-                id="price"
-                step="0.01"
-                placeholder='Price' 
-                value={formik.values.price}
-                onChange={formik.handleChange}
-                />
-                <button type="SUBMIT">Update Wine</button>
-            </form>
-
-        </div>
-      );
 }
-export default PatchForm
+
+export default PatchForm;

@@ -59,8 +59,6 @@ function Wine({ name, location, price, handleDelete, type, wine, flavor_profile 
           </button>
         </div>
       )}
-
-
       {isClicked ? (
         users.map((user) => (
           <div key={user.id}>

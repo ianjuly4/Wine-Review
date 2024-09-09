@@ -142,6 +142,7 @@ api.add_resource(WineByID, '/wines/<int:id>')
 
 
 class WineUsersById(Resource):
+
     def get(self, id):
         wine = Wine.query.filter(Wine.id == id).first()
 

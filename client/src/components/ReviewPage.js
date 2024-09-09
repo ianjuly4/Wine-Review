@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react"
 import Review from "./Review"
 import ReviewForm from "./ReviewForm"
 import ReviewHeader from "./ReviewHeader"
+import NavBar from "./NavBar"
 
 function ReviewPage(){
     const[wines, setWines] = useState([])
@@ -21,6 +22,8 @@ function ReviewPage(){
 
     return(
         <div className="bgcolor = bg-red-400">
+            <NavBar/>
+            <ReviewHeader/>
             <ReviewForm/>
             <ul>
                 {wines.map((wine) => {
@@ -35,7 +38,6 @@ function ReviewPage(){
                 });
             })}
             </ul>
-             <ReviewHeader/>
         </div>
     )
 }

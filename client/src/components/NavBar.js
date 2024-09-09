@@ -13,7 +13,13 @@ function NavBar(){
             <NavLink
             to="/FormPage"
             className="nav-link">
-            Add/Update 
+            Add/Update
+            </NavLink>
+
+            <NavLink
+            to="/ReviewPage"
+            className="nav-link">
+            Reviews
             </NavLink>
 
             <NavLink
