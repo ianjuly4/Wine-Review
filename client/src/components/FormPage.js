@@ -8,7 +8,7 @@ import ReviewPage from "./ReviewPage"
 
 function  FormPage(){
     return(
-        <div className="FormPage">
+        <div className="bgcolor = bg-red-400">
             <NavBar/>
             <FormHeader />
             <Form />

@@ -9,7 +9,7 @@ function  AboutPage(){
     
       
     return(
-        <div className="AboutPage">
+        <div className="bgcolor = bg-red-400">
             <NavBar/>
             <AboutHeader />
             <About/>

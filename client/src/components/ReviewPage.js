@@ -7,7 +7,7 @@ function ReviewPage(){
     const[wines, setWines] = useState([])
 
     useEffect(() => {
-        fetch("http://127.0.0.1:5555/wines",{
+        fetch("wines",{
             method: "GET",
             headers:{
                 "Content-Type": "application/json"
@@ -20,7 +20,7 @@ function ReviewPage(){
         }, []);
 
     return(
-        <div className="ReviewPage">
+        <div className="bgcolor = bg-red-400">
             <ReviewForm/>
             <ul>
                 {wines.map((wine) => {

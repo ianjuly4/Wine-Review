@@ -16,7 +16,7 @@ function WineList(){
 
 
   useEffect(() => {
-    fetch("http://127.0.0.1:5555/wines",{
+    fetch("/wines",{
         method: "GET",
         headers:{
             "Content-Type": "application/json"
@@ -54,7 +54,7 @@ function WineList(){
 
   return(
     
-  <div className="WineList">
+  <div className="bgcolor = bg-red-400">
     
   <>
     <NavBar/>

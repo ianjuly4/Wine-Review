@@ -5,7 +5,7 @@ function PatchWine({wine, user, name, type, location,
     const [patchWine, setPatchWine] = useState("")
 
     const handleUpdateClick = () =>{
-        fetch(`http://127.0.0.1:5555/wines/${wine.id}`,{
+        fetch(`wines/${wine.id}`,{
           method: "PATCH",
           headers:{
             "Content-Type": "application/json"

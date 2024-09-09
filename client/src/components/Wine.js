@@ -7,7 +7,7 @@ function Wine({ name, location, price, handleDelete, type, wine, flavor_profile 
   const [starReviews, setStarReviews] = useState("")
 
   const handleDeleteClick = () => {
-    fetch(`http://127.0.0.1:5555/wines/${wine.id}`, {
+    fetch(`wines/${wine.id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json"
