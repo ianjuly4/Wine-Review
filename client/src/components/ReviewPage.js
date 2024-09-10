@@ -5,15 +5,15 @@ import ReviewHeader from "./ReviewHeader";
 import NavBar from "./NavBar";
 import UserHeader from "./UserHeader";
 import UserPost from "./UserPost";
-import Review from "./Review"
-import ReviewWine from "./ReviewWine"
+import Review from "./Review";
+import ReviewWine from "./ReviewWine";
 import ReviewWineHeader from "./ReviewWineHeader";
 
 function ReviewPage() {
     const [users, setUsers] = useState([]);
     const [error, setError] = useState(null);
-    const [reviews, setReviews] = useState([])
-    const [wines, setWines] = useState([])
+    const [reviews, setReviews] = useState([]);
+    const [wines, setWines] = useState([]);
 
     useEffect(() => {
         fetch("/users", {
@@ -22,20 +22,14 @@ function ReviewPage() {
                 "Content-Type": "application/json"
             }
         })
-        .then((r) => {
-            if (!r.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return r.json();
-        })
-        .then((userData) => {
-            setUsers(userData);
-        })
+        .then((r) => r.json())
+        .then((userData) => setUsers(userData))
         .catch((error) => {
             console.error('There was a problem with the fetch operation:', error);
             setError(error.message);
         });
     }, []);
+
     useEffect(() => {
         fetch("/reviews", {
             method: "GET",
@@ -43,36 +37,8 @@ function ReviewPage() {
                 "Content-Type": "application/json"
             }
         })
-        .then((r) => {
-            if (!r.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return r.json();
-        })
-        .then((reviewData) => {
-            setReviews(reviewData);
-        })
-        .catch((error) => {
-            console.error('There was a problem with the fetch operation:', error);
-            setError(error.message);
-        });
-    }, []);
-    useEffect(() => {
-        fetch("/users", {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
-        .then((r) => {
-            if (!r.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return r.json();
-        })
-        .then((userData) => {
-            setUsers(userData);
-        })
+        .then((r) => r.json())
+        .then((reviewData) => setReviews(reviewData))
         .catch((error) => {
             console.error('There was a problem with the fetch operation:', error);
             setError(error.message);
@@ -86,15 +52,8 @@ function ReviewPage() {
                 "Content-Type": "application/json"
             }
         })
-        .then((r) => {
-            if (!r.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return r.json();
-        })
-        .then((wineData) => {
-            setWines(wineData);
-        })
+        .then((r) => r.json())
+        .then((wineData) => setWines(wineData))
         .catch((error) => {
             console.error('There was a problem with the fetch operation:', error);
             setError(error.message);
@@ -104,6 +63,8 @@ function ReviewPage() {
     const handleDelete = (userToDelete) => {
         const updatedUsers = users.filter((user) => user.id !== userToDelete.id);
         setUsers(updatedUsers);
+        const updatedReviews = reviews.filter((review) => review.user_id !== userToDelete.id);
+        setReviews(updatedReviews);
     };
 
     return (
@@ -123,33 +84,33 @@ function ReviewPage() {
                     />
                 ))}
             </ul>
-            <ReviewWineHeader/>
+            <ReviewWineHeader />
             <ul>
-                {wines.map((wine, index)=>
+                {wines.map((wine, index) => (
                     <ReviewWine
                         key={wine.id}
                         number={index + 1}
                         name={wine.name}
                     />
-                )}
+                ))}
             </ul>
             <ReviewHeader />
             <ul>
-                {reviews.map((review, index)=>
+                {reviews.map((review, index) => (
                     <Review
                         key={review.id}
                         number={index + 1}
-                        wine={review.wine.name}
-                        user={review.user.name}
+                        wine={review.wine?.name || "Unknown wine"}
+                        user={review.user?.name || "Unknown user"}
                         comment={review.comment}
                         star_review={review.star_review}
                         user_id={review.user_id}
                         wine_id={review.wine_id}
                         review={review}
                     />
-                )}
+                ))}
             </ul>
-            <ReviewForm />
+            <ReviewForm setReviews={setReviews} />
         </div>
     );
 }

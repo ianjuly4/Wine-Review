@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 
-function ReviewForm() {
-  const [number, setNumber] = useState("");
-
+function ReviewForm({ setReviews }) {
   const formSchema = yup.object().shape({
     user_id: yup
       .number()
@@ -30,7 +28,7 @@ function ReviewForm() {
       star_review: "",
     },
     validationSchema: formSchema,
-    onSubmit: (values) => {
+    onSubmit: (values, { resetForm }) => {
       fetch(`http://127.0.0.1:5555/reviews`, {
         method: "POST",
         headers: {
@@ -40,7 +38,8 @@ function ReviewForm() {
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
+          setReviews((prevReviews) => [...prevReviews, data]);
+          resetForm();
         })
         .catch((error) => {
           console.error("Error:", error);
@@ -68,18 +67,18 @@ function ReviewForm() {
         <input 
           type="text" 
           id="comment" 
-          placeholder="comment"
+          placeholder="Comment"
           value={formik.values.comment}
           onChange={formik.handleChange}
         /> 
         <input 
           type="number" 
           id="star_review" 
-          placeholder="number of stars"
+          placeholder="Number of stars"
           value={formik.values.star_review}
           onChange={formik.handleChange}
         />
-        <button type="SUBMIT">Add Review</button>
+        <button type="submit">Add Review</button>
         {formik.touched.wine_id && formik.errors.wine_id ? (
           <p style={{ color: "Black", textAlign: "center" }}>{formik.errors.wine_id}</p>
         ) : null}
