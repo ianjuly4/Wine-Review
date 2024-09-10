@@ -4,6 +4,7 @@ import ReviewForm from "./ReviewForm"
 import ReviewHeader from "./ReviewHeader"
 import NavBar from "./NavBar"
 import UserHeader from "./UserHeader"
+import UserPost from "./UserPost"
 
 function ReviewPage(){
     const[users, setUsers] = useState([])
@@ -25,6 +26,7 @@ function ReviewPage(){
         <div className="bgcolor = bg-red-400">
             <NavBar/>
             <UserHeader/>
+            <UserPost setUsers={setUsers}/>
             <ul>
                 {users.map((user, index) => {
                     return (<User key={user.id}

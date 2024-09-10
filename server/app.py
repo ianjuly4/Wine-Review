@@ -156,6 +156,24 @@ class Users(Resource):
             200
         )
         return response
+    
+    def post(self):
+        data = request.get_json()
+        print(data)
+        new_user = Wine(
+            name=data['name']
+            
+        )
+        new_user_dict = new_user.to_dict()
+
+        db.session.add(new_user)
+        db.session.commit()
+
+        response = make_response(
+            new_user_dict,
+            201   
+        )
+        return response     
 api.add_resource(Users, '/users')
   
 
