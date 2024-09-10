@@ -7,7 +7,7 @@ function Wine({ name, location, price, handleDelete, type, wine, flavor_profile 
   const [starReviews, setStarReviews] = useState("");
 
   const handleDeleteClick = (e) => {
-    e.stopPropagation(); // Prevent click event from propagating to the li element
+    e.stopPropagation(); 
     fetch(`wines/${wine.id}`, {
       method: "DELETE",
       headers: {
@@ -15,7 +15,7 @@ function Wine({ name, location, price, handleDelete, type, wine, flavor_profile 
       }
     })
       .then((r) => r.json())
-      .then(() => handleDelete(wine)); // Pass the actual wine object to handleDelete
+      .then(() => handleDelete(wine)); 
   };
 
   const handleClick = () => {

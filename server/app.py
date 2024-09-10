@@ -160,9 +160,8 @@ class Users(Resource):
     def post(self):
         data = request.get_json()
         print(data)
-        new_user = Wine(
+        new_user = User(
             name=data['name']
-            
         )
         new_user_dict = new_user.to_dict()
 
@@ -175,6 +174,37 @@ class Users(Resource):
         )
         return response     
 api.add_resource(Users, '/users')
+
+class UserById(Resource):
+    def get(self, id):
+
+        user_dict = User.query.filter_by(id=id).first().to_dict()
+
+        response = make_response(
+            user_dict,
+            200, 
+
+        )
+
+        return response
+    
+    def delete(self, id):
+
+        user = User.query.filter(User.id == id).first()
+
+        db.session.delete(user)
+        db.session.commit()
+
+        response_dict = {"message": "user successfully deleted"}
+
+        response = make_response(
+            response_dict,
+            200,
+
+        )
+
+        return response
+api.add_resource(UserById, '/users/<int:id>')
   
 
 if __name__ == '__main__':

@@ -22,6 +22,11 @@ function ReviewPage(){
           });
         }, []);
 
+        const handleDelete = (userToDelete) => {
+            const updatedUsers = users.filter((user) => user.id !== userToDelete.id);
+            setUsers(updatedUsers);
+          };
+
     return(
         <div className="bgcolor = bg-red-400">
             <NavBar/>
@@ -32,6 +37,8 @@ function ReviewPage(){
                     return (<User key={user.id}
                     name={user.name}
                     number={index+1}
+                    handleDelete={handleDelete}
+                    user={user}
                     />
                     );
                 })
