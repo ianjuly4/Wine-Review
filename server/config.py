@@ -7,20 +7,46 @@ from flask_migrate import Migrate
 from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData
+from flask_bcrypt import Bcrypt
+from dotenv import load_dotenv
+import os
 
-# Local imports
-
-# Instantiate app, set attributes
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.json.compact = False
-
-# Define metadata, instantiate db
 metadata = MetaData(naming_convention={
     "fk": "fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s",
 })
-db = SQLAlchemy(metadata=metadata)
+
+load_dotenv()
+
+def configure_server():
+    """Creates and returns new instance of Flask with the appropriate attributes.
+    The attributes depend on the configuration type.
+
+    Raises:
+        ValueError: if the configuration type read from configType.txt is neither DEVELOPMENT nor SERVER.
+
+    Returns:
+        Flask: the appropriate instation of Flask for this application.
+    """
+    with open("../configType.txt", encoding="utf-8") as mode:
+        config_type = mode.read()
+    if config_type.lower() == 'development':
+        return Flask(__name__)
+    elif config_type.lower() == 'production':
+        return Flask(
+            __name__,
+            static_url_path="",
+            static_folder="../client/dist",
+            template_folder="../client/dist",
+        )
+    else:
+        raise ValueError("Invalid configuration type processed.")
+    
+app = configure_server()
+app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URI")
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+app.json.compact = False
+
+db = SQLAlchemy()
 migrate = Migrate(app, db)
 db.init_app(app)
 
@@ -29,3 +55,5 @@ api = Api(app)
 
 # Instantiate CORS
 CORS(app)
+
+bcrypt = Bcrypt(app)
