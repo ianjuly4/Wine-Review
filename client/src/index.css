@@ -189,7 +189,7 @@
   border-radius: 20px;
   text-decoration: none;
   text-align: center;
-  font-size: 20px ;
+  font-size: 15px ;
   color: black;
 }
 .ReviewForm {
@@ -228,4 +228,18 @@
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   color: white
+}
+.ReviewWine{
+  display: inline-block;
+  justify-content: space-between;
+  box-sizing: border-box;
+  width: 270px;
+  margin: 0 6px 6px;
+  background:white;
+  box-shadow: 5px 5px 10px brown;
+  border-radius: 20px;
+  text-decoration: none;
+  text-align: center;
+  font-size: 15px ;
+  color: black;
 }

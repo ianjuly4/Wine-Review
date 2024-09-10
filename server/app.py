@@ -144,7 +144,27 @@ class Reviews(Resource):
             review_dict_list,
             200,
         )
-        return response      
+        return response
+    def post(self):
+        data = request.get_json()
+        print(data)
+        new_review = Review(
+            user_id=data['user_id'],
+            wine_id=data['wine_id'],
+            comment=data['comment'],
+            star_review=data['star_review']
+        )
+        new_review_dict = new_review.to_dict()
+
+        db.session.add(new_review)
+        db.session.commit()
+
+        response = make_response(
+            new_review_dict,
+            201   
+        )
+        return response     
+  
       
 api.add_resource(Reviews, '/reviews')
 
