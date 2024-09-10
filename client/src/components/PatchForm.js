@@ -13,14 +13,23 @@ function PatchForm({ onSubmit }) {
       .required("Must enter number of a listed wine")
       .typeError("Please enter an Integer")
       .max(125),
+      name: yup
+        .string()
+        .required("Wine Name is required"),
+      type: yup
+        .string()
+        .required("Type is required"),
+      location: yup
+        .string(),
     price: yup
       .number()
       .positive()
       .typeError("Please enter a valid price")
       .max(100),
+    flavor_profile: yup
+      .string(),
   
   });
-
   const formik = useFormik({
     initialValues: {
       number: "",
@@ -28,7 +37,7 @@ function PatchForm({ onSubmit }) {
       location: "",
       type: "",
       price: "",
-      flavorProfile: "",
+      flavor_profile: "",
     },
     validationSchema: formSchema,
     onSubmit: (values,{resetForm}) => {
@@ -41,7 +50,8 @@ function PatchForm({ onSubmit }) {
       })
         .then((response) => response.json())
         .then((data) => {
-          onSubmit(data);  
+          onSubmit(data);
+          console.log(data)  
           resetForm()
         })
         .catch((error) => {
@@ -53,8 +63,14 @@ function PatchForm({ onSubmit }) {
   return (
     <div>
       <form className="PatchForm" onSubmit={formik.handleSubmit}>
-      {formik.touched.number && formik.errors.number ? (
+        {formik.touched.number && formik.errors.number ? (
           <p style={{color:"Black", textAlign:"center"}}>{formik.errors.number}</p>
+        ) : null}
+        {formik.touched.name && formik.errors.name ? (
+          <p style={{color:"Black", textAlign:"center"}}>{formik.errors.name}</p>
+        ) : null}
+        {formik.touched.type && formik.errors.type ? (
+          <p style={{color:"Black", textAlign:"center"}}>{formik.errors.type}</p>
         ) : null}
         <input
           type="number"
@@ -62,7 +78,6 @@ function PatchForm({ onSubmit }) {
           placeholder="Wine Number"
           value={formik.values.number}
           onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
         />
 
         <input
@@ -71,40 +86,33 @@ function PatchForm({ onSubmit }) {
           placeholder="Wine Name"
           value={formik.values.name}
           onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
         />
-        
-
+      
         <input
           type="text"
           id="type"
           placeholder="Wine Type"
           value={formik.values.type}
           onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
         />
       
-
         <input
           type="text"
           id="location"
           placeholder="Location"
           value={formik.values.location}
           onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
+
         />
       
-
         <input
           type="text"
-          id="flavorProfile"
+          id="flavor_profile"
           placeholder="Flavor Profile"
-          value={formik.values.flavorProfile}
+          value={formik.values.flavor_profile}
           onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
         />
       
-
         <input
           type="number"
           id="price"
@@ -112,10 +120,8 @@ function PatchForm({ onSubmit }) {
           placeholder="Price"
           value={formik.values.price}
           onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
         />
         <button type="submit">Update Wine</button>
-        
       </form>
     </div>
   );

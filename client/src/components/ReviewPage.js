@@ -1,43 +1,42 @@
 import React, {useState, useEffect} from "react"
-import Review from "./Review"
+import User from "./User"
 import ReviewForm from "./ReviewForm"
 import ReviewHeader from "./ReviewHeader"
 import NavBar from "./NavBar"
+import UserHeader from "./UserHeader"
 
 function ReviewPage(){
-    const[wines, setWines] = useState([])
+    const[users, setUsers] = useState([])
 
     useEffect(() => {
-        fetch("wines",{
+        fetch("/users",{
             method: "GET",
             headers:{
                 "Content-Type": "application/json"
             }
         })
           .then((r) => r.json())
-          .then((wineData) => {
-            setWines(wineData);
+          .then((userData) => {
+            setUsers(userData);
           });
         }, []);
 
     return(
         <div className="bgcolor = bg-red-400">
             <NavBar/>
-            <ReviewHeader/>
-            <ReviewForm/>
+            <UserHeader/>
             <ul>
-                {wines.map((wine) => {
-                return wine.reviews.map((review) => {
-                    return (<Review key={review.id}
-                    name={wine.name}
-                    user={review.user.name}
-                    comment={review.comment}
-                    starReview={review.star_review}
+                {users.map((user, index) => {
+                    return (<User key={user.id}
+                    name={user.name}
+                    number={index+1}
                     />
                     );
-                });
-            })}
+                })
+            }
             </ul>
+            <ReviewHeader/>
+            <ReviewForm/>
         </div>
     )
 }

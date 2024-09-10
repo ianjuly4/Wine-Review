@@ -56,32 +56,13 @@ class Wines(Resource):
             price=data['price'],
             flavor_profile=data['flavor_profile'],
         )
-
-        new_review = Review(
-            comment=data['review']['comment'],
-            star_review=data['review']['star_review']
-        )
-
-        new_user = User(
-            name=data['user']['name']
-        )
-
-        new_wine.reviews.append(new_review)
-        new_review.user = new_user
+        new_wine_dict = new_wine.to_dict()
 
         db.session.add(new_wine)
-        db.session.add(new_review)
-        db.session.add(new_user)
         db.session.commit()
 
-        response_dict = {
-            'wine': new_wine.to_dict(),
-            'review': new_review.to_dict(),
-            'user': new_user.to_dict()
-        }
-
         response = make_response(
-            response_dict,
+            new_wine_dict,
             201   
         )
         return response     
@@ -156,9 +137,26 @@ class WineUsersById(Resource):
     
 api.add_resource(WineUsersById, '/wines/<int:id>/users')
 
+class Reviews(Resource):
+    def get(self):
+        review_dict_list = [review.to_dict() for review in Review.query.all()]
+        response = make_response(
+            review_dict_list,
+            200,
+        )
+        return response      
+      
+api.add_resource(Reviews, '/reviews')
 
-
-
+class Users(Resource):
+    def get(self):
+        user_dict_list = [user.to_dict() for user in User.query.all()]
+        response = make_response(
+            user_dict_list,
+            200
+        )
+        return response
+api.add_resource(Users, '/users')
   
 
 if __name__ == '__main__':
